@@ -49,3 +49,9 @@ ef-chart {
   width: 100%;
   display: inline-block;
 }
+#col3 > div {
+  border: 1px white solid;
+}
+#col3 h1 {
+  font-size: 24px;
+}
