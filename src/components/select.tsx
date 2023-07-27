@@ -1,7 +1,8 @@
+import { Select as RefinitivSelect } from '@refinitiv-ui/elements/select';
 import React from 'react';
 
 function Select({ className, value, onChange, data }) {
-  const selectRef = React.useRef(); // grab a DOM reference to our `ef-select`
+  const selectRef = React.useRef<RefinitivSelect>();
 
   React.useLayoutEffect(() => {
     const { current } = selectRef;
@@ -9,6 +10,10 @@ function Select({ className, value, onChange, data }) {
     const handleChange = (event) => {
       onChange(event.detail.value);
     };
+
+    if (!current) {
+      return () => undefined;
+    }
 
     current.data = data;
     current.value = value;

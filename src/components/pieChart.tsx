@@ -1,11 +1,20 @@
+import { Chart } from '@refinitiv-ui/elements/chart';
+import { ChartConfiguration } from 'chart.js';
 import React, { useEffect } from 'react';
 
-function PieChart({ className, value, onChange, title }) {
+interface Props {
+  value: any;
+  title: string;
+  onChange: (x: () => void) => void;
+  className?: string;
+}
+
+function PieChart({ className, value, onChange, title }: Props) {
   useEffect(() => {});
-  const selectRef = React.useRef(); // grab a DOM reference to our `ef-select`
+  const selectRef = React.useRef<Chart>(); // grab a DOM reference to our `ef-select`
 
   React.useLayoutEffect(() => {
-    const data = {
+    const data: ChartConfiguration = {
       type: 'pie',
       data: {
         labels: ['Americas', 'Europe'],
@@ -19,7 +28,6 @@ function PieChart({ className, value, onChange, title }) {
         plugins: {
           tooltip: {
             callbacks: {
-              title: () => null,
               label: (tooltipItem) => {
                 const result = tooltipItem.raw;
                 const title = tooltipItem.label;
@@ -35,8 +43,11 @@ function PieChart({ className, value, onChange, title }) {
     const handleChange = (event) => {
       onChange(event.detail.value);
     };
+
+    if (!current) {
+      return () => undefined;
+    }
     current.config = data;
-    current.value = data;
     current.addEventListener('value-changed', handleChange);
 
     return () => current.removeEventListener('value-changed', handleChange);

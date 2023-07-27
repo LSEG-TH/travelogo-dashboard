@@ -1,11 +1,20 @@
+import { Chart } from '@refinitiv-ui/elements/chart';
+import { ChartConfiguration } from 'chart.js';
 import React, { useEffect } from 'react';
 
-function BarChart({ className, value, onChange, title }) {
+interface Props {
+  value: any;
+  title: string;
+  onChange: (x: () => void) => void;
+  className?: string;
+}
+
+function BarChart({ className, value, onChange, title }: Props) {
   useEffect(() => {});
-  const selectRef = React.useRef(); // grab a DOM reference to our `ef-select`
+  const selectRef = React.useRef<Chart>(); // grab a DOM reference to our `ef-select`
 
   React.useLayoutEffect(() => {
-    const data = {
+    const data: ChartConfiguration = {
       type: 'bar',
       data: {
         labels: ['Order', 'Customer'],
@@ -26,7 +35,7 @@ function BarChart({ className, value, onChange, title }) {
             callbacks: {
               label: (tooltipItem) => {
                 const year = tooltipItem.label;
-                let rev = tooltipItem.raw;
+                let rev = tooltipItem.raw as string;
                 rev = rev.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
                 return year + ': ' + rev;
               },
@@ -56,8 +65,10 @@ function BarChart({ className, value, onChange, title }) {
     const handleChange = (event) => {
       onChange(event.detail.value);
     };
+    if (!current) {
+      return () => undefined;
+    }
     current.config = data;
-    current.value = data;
     current.addEventListener('value-changed', handleChange);
 
     return () => current.removeEventListener('value-changed', handleChange);

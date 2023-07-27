@@ -1,11 +1,19 @@
+import { ChartConfiguration } from 'chart.js';
 import React, { useEffect } from 'react';
 
-function LineChart({ className, value, onChange, title }) {
+interface Props {
+  value: any;
+  title: string;
+  onChange: (x: () => void) => void;
+  className?: string;
+}
+
+function LineChart({ className, value, onChange, title }: Props) {
   useEffect(() => {});
-  const selectRef = React.useRef(); // grab a DOM reference to our `ef-select`
+  const selectRef = React.useRef<any>(); // grab a DOM reference to our `ef-select`
 
   React.useLayoutEffect(() => {
-    const data = {
+    const data: ChartConfiguration = {
       type: 'line',
       data: {
         labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
@@ -49,8 +57,11 @@ function LineChart({ className, value, onChange, title }) {
     const handleChange = (event) => {
       onChange(event.detail.value);
     };
+
+    if (!current) {
+      return () => undefined;
+    }
     current.config = data;
-    current.value = data;
     current.addEventListener('value-changed', handleChange);
 
     return () => current.removeEventListener('value-changed', handleChange);
