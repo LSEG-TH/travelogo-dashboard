@@ -19,7 +19,7 @@ import '@refinitiv-ui/halo-theme/dark/imports/native-elements';
 import '@refinitiv-ui/elements/button/themes/halo/dark';
 import '@refinitiv-ui/elements/panel/themes/halo/dark';
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const root = ReactDOM.createRoot(document.getElementById('root')!);
 root.render(
   <React.StrictMode>
     <App />

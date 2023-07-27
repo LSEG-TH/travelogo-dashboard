@@ -8,10 +8,10 @@ function App() {
     <div className='App'>
       <div className='grid grid-cols-5 grid-rows-2 gap-1'>
         <div className='grid col-span-2 gap-1'>
-          <LineChart title='Seasonal Income' />
+          <LineChart className='' value='' onChange={() => {}} title='Seasonal Income' />
         </div>
         <div className='grid col-span-2 gap-1'>
-          <BarChart title='Turn Up Ratio' />
+          <BarChart value='' onChange={() => undefined} title='Turn Up Ratio' />
         </div>
         <div id='col3' className='grid col-span-1 row-span-3 gap-1'>
           <div className='grid items-center justify-center'>
@@ -40,13 +40,13 @@ function App() {
           </div>
         </div>
         <div className='grid col-span-2 gap-1'>
-          <LineChart title='Guests per Contries' />
+          <LineChart value='' onChange={() => undefined} title='Guests per Contries' />
         </div>
         <div className='grid grid-cols-2 col-span-2 row-span-2 gap-1'>
-          <PieChart />
-          <PieChart />
-          <PieChart />
-          <PieChart />
+          <PieChart value='' title='' onChange={() => undefined} />
+          <PieChart value='' title='' onChange={() => undefined} />
+          <PieChart value='' title='' onChange={() => undefined} />
+          <PieChart value='' title='' onChange={() => undefined} />
         </div>
       </div>
     </div>
