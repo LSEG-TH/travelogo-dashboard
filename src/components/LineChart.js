@@ -1,7 +1,6 @@
-import React from 'react';
 import Chart from './Chart';
 
-function LineChart({ data, title }) {
+function LineChart({ data, title, yAxisLabel, displayLegend = false }) {
   const config = {
     type: 'line',
     data,
@@ -11,22 +10,14 @@ function LineChart({ data, title }) {
           text: title,
         },
         legend: {
-          // only required when importing chart.js/auto
-          display: false,
-        },
-        tooltip: {
-          callbacks: {
-            label: (tooltipItem) => {
-              return tooltipItem.formattedValue + ' $';
-            },
-          },
+          display: displayLegend,
         },
       },
       scales: {
         y: {
           title: {
             display: true,
-            text: 'Price ($)',
+            text: yAxisLabel,
           },
         },
       },

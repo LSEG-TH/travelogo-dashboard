@@ -4,3 +4,6 @@ import '@refinitiv-ui/elements/chart/themes/halo/dark';
 import '@refinitiv-ui/elements/panel/themes/halo/dark';
 import '@refinitiv-ui/elements/toggle/themes/halo/dark';
 import '@refinitiv-ui/elements/header/themes/halo/dark';
+import '@refinitiv-ui/elements/button/themes/halo/dark';
+import '@refinitiv-ui/elements/button-bar/themes/halo/dark';
+import '@refinitiv-ui/elements/sparkline/themes/halo/dark';
