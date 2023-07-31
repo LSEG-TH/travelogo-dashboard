@@ -4,19 +4,7 @@ import Chart from './Chart';
 function BarChart({ data, title }) {
   const config = {
     type: 'bar',
-    data: {
-      labels: ['Order', 'Customer'],
-      datasets: [
-        {
-          label: '2022',
-          data: [29321, 107905],
-        },
-        {
-          label: '2023',
-          data: [65225, 88249],
-        },
-      ],
-    },
+    data,
     options: {
       plugins: {
         tooltip: {
@@ -49,7 +37,7 @@ function BarChart({ data, title }) {
     },
   };
 
-  return <Chart config={config} id='pie'></Chart>;
+  return <Chart config={config} title={title}></Chart>;
 }
 
 export default BarChart;
