@@ -1,9 +1,18 @@
 import './App.css';
-import BarChart from './components/barChart';
-import LineChart from './components/lineChart';
-import PieChart from './components/pieChart';
+import BarChart from './components/BarChart';
+import LineChart from './components/LineChart';
+import PieChart from './components/PieChart';
 
 function App() {
+  const pieData = {
+    labels: ['Americas', 'Europe'],
+    datasets: [
+      {
+        data: [60, 40],
+      },
+    ],
+  };
+
   return (
     <div className='App'>
       <div className='grid grid-cols-5 grid-rows-2 gap-1'>
@@ -43,10 +52,10 @@ function App() {
           <LineChart title='Guests per Contries' />
         </div>
         <div className='grid grid-cols-2 col-span-2 row-span-2 gap-1'>
-          <PieChart />
-          <PieChart />
-          <PieChart />
-          <PieChart />
+          <PieChart data={pieData} />
+          <PieChart data={pieData} />
+          <PieChart data={pieData} />
+          <PieChart data={pieData} />
         </div>
       </div>
     </div>

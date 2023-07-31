@@ -1,9 +1,9 @@
 import * as React from 'react';
 import { createComponent } from '@lit-labs/react';
-import { Select } from '@refinitiv-ui/elements/select';
+import { Chart } from '@refinitiv-ui/elements/chart';
 
 export default createComponent({
-  tagName: 'ef-select',
-  elementClass: Select,
+  tagName: 'ef-chart',
+  elementClass: Chart,
   react: React,
 });
