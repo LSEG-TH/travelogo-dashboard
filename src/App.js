@@ -3,24 +3,17 @@ import BarChart from './components/BarChart';
 import LineChart from './components/LineChart';
 import PieChart from './components/PieChart';
 
-function App() {
-  const pieData = {
-    labels: ['Americas', 'Europe'],
-    datasets: [
-      {
-        data: [60, 40],
-      },
-    ],
-  };
+import { barData, lineData, pieData } from './assets/mockupData';
 
+function App() {
   return (
     <div className='App'>
       <div className='grid grid-cols-5 grid-rows-2 gap-1'>
         <div className='grid col-span-2 gap-1'>
-          <LineChart title='Seasonal Income' />
+          <LineChart data={lineData} title='Seasonal Income' />
         </div>
         <div className='grid col-span-2 gap-1'>
-          <BarChart title='Turn Up Ratio' />
+          <BarChart data={barData} title='Turn Up Ratio' />
         </div>
         <div id='col3' className='grid col-span-1 row-span-3 gap-1'>
           <div className='grid items-center justify-center'>
