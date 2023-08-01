@@ -60,10 +60,6 @@ const twoYearsTurnupRatioData = {
 const seasonalChartOptions = {
   tension: 0.3,
   fill: true,
-  pointStyle: 'rect',
-  borderJoinStyle: 'round',
-  borderColor: '#4bc0c0',
-  backgroundColor: '#d0eded87',
 };
 
 const oneYearSeasonalIncomeData = {

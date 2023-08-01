@@ -91,7 +91,7 @@ function App() {
         <div className='grid col-span-2 border-r border-b border-slate-200'>
           <>
             <Header>
-              ($) Seasonal Income
+              Seasonal Income ($)
               <ButtonBar
                 managed
                 slot='right'
@@ -111,7 +111,7 @@ function App() {
         </div>
         <div className='grid col-span-2 border-b border-slate-200'>
           <Header>
-            Turn up ratio
+            Turn up ratio (%)
             <ButtonBar managed slot='right' className='mr-1' ontap={handleTurnupRatioChange}>
               <ef-button name='2y' toggles>
                 2Y
