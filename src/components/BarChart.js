@@ -1,16 +1,24 @@
 import React from 'react';
 import Chart from './Chart';
 
-function BarChart({ data, title }) {
+function BarChart({ data, title, yAxisLabel, displayLegend = false }) {
   const config = {
     type: 'bar',
     data,
     options: {
+      plugins: {
+        title: {
+          text: title,
+        },
+        legend: {
+          display: displayLegend,
+        },
+      },
       scales: {
         y: {
           title: {
-            display: true,
-            text: 'Turn up ratio (%)',
+            display: !!yAxisLabel,
+            text: yAxisLabel,
           },
         },
       },

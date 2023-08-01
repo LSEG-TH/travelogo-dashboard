@@ -76,22 +76,28 @@ function App() {
               <ef-button toggles>6M</ef-button>
             </ef-button-bar>
           </Header>
-          <BarChart data={oneYearTurnupRatioData} />
+          <BarChart data={oneYearTurnupRatioData} yAxisLabel={'Turn up ratio (%)'} />
         </div>
         <div id='col3' className='flex flex-col col-span-1 row-span-2 border-l border-slate-200'>
           <Header className='flex-none'>Hotel Name - Powered By Akado v1.3.1</Header>
           <div className='flex flex-col grow items-center justify-center border-b border-slate-200'>
-            <h1>Average Rating</h1>
-            <h1 className='text-5xl'>8.1/10</h1>
+            <div>
+              <h1>Average Rating</h1>
+              <h1 className='text-5xl'>8.1/10</h1>
+            </div>
           </div>
           <div className='flex flex-col grow items-center justify-center border-b border-slate-200'>
-            <h1>Average Monthly $</h1>
-            <h1 className='text-5xl'>${getAverageMonthly()}</h1>
+            <div>
+              <h1>Average Monthly $</h1>
+              <h1 className='text-5xl'>${getAverageMonthly()}</h1>
+            </div>
             <SparkLineChart className='w-full h-44 pt-6' data={getOneYearIncome()}></SparkLineChart>
           </div>
           <div className='flex flex-col grow items-center justify-center border-b border-slate-200'>
-            <h1>ESG (By LSEG)</h1>
-            <h1 className='text-5xl'>$15,000</h1>
+            <div>
+              <h1>ESG (By LSEG)</h1>
+              <h1 className='text-5xl'>$15,000</h1>
+            </div>
           </div>
         </div>
         <div className='grid col-span-2 border-r border-b border-slate-200'>
