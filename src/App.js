@@ -20,6 +20,7 @@ import {
   twoYearsGuestPerCountryData,
   pieData,
 } from './assets/mockupData';
+import ButtonBar from './components/ButtonBar';
 
 function App() {
   const [seasonalIncomeData, setSeasonalIncomeData] = useState(oneYearSeasonalIncomeData);
@@ -35,6 +36,14 @@ function App() {
     return average.toLocaleString();
   }
 
+  const handleChangeSeasonalIncome = (e) => {
+    if (e.target.getAttribute('id') === '3y') {
+      setSeasonalIncomeData(threeYearsSeasonalIncomeData);
+    } else {
+      setSeasonalIncomeData(oneYearSeasonalIncomeData);
+    }
+  };
+
   return (
     <div className='App'>
       <div className='grid grid-cols-5 grid-rows-2'>
@@ -42,25 +51,14 @@ function App() {
           <>
             <Header>
               ($) Seasonal Income
-              <ef-button-bar managed slot='right' className='mr-1'>
-                <ef-button
-                  toggles
-                  ontap={() => {
-                    setSeasonalIncomeData(threeYearsSeasonalIncomeData);
-                  }}
-                >
+              <ButtonBar managed slot='right' className='mr-1' ontap={handleChangeSeasonalIncome}>
+                <ef-button id='3y' toggles>
                   3Y
                 </ef-button>
-                <ef-button
-                  active
-                  toggles
-                  ontap={() => {
-                    setSeasonalIncomeData(oneYearSeasonalIncomeData);
-                  }}
-                >
+                <ef-button id='1y' active toggles>
                   1Y
                 </ef-button>
-              </ef-button-bar>
+              </ButtonBar>
             </Header>
             <LineChart data={seasonalIncomeData} yAxisLabel={'Income ($)'} />
           </>
