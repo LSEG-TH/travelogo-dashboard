@@ -23,13 +23,34 @@ const TWO_YEARS_LABELS = [
   '12-2021',
   ...ONE_YEAR_LABEL,
 ];
+
+const sixMonthsTurnupRatioData = {
+  labels: SIX_MONTHS_LABELS,
+  datasets: [
+    {
+      data: [99, 98, 99, 97.5, 93, 95],
+    },
+  ],
+};
+
 const oneYearTurnupRatioData = {
   labels: ONE_YEAR_LABEL,
   datasets: [
     {
-      label: '2021',
-      backgroundColor: 'teal',
+      backgroundColor: '#9BD0F5',
       data: [99, 98, 99, 97.5, 93, 95, 96, 94.99, 100, 100, 98, 99],
+    },
+  ],
+};
+
+const twoYearsTurnupRatioData = {
+  labels: TWO_YEARS_LABELS,
+  datasets: [
+    {
+      data: [
+        99, 98, 99, 97.5, 93, 95, 96, 94.99, 100, 100, 98, 99, 99, 98, 99, 97.5, 93, 95, 96, 94.99,
+        100, 100, 98, 99,
+      ],
     },
   ],
 };
@@ -58,7 +79,7 @@ const threeYearsSeasonalIncomeData = {
     '10-2020',
     '11-2020',
     '12-2020',
-    TWO_YEARS_LABELS,
+    ...TWO_YEARS_LABELS,
   ],
   datasets: [
     {
@@ -237,7 +258,9 @@ const twoYearsGuestPerCountryData = {
 };
 
 export {
+  sixMonthsTurnupRatioData,
   oneYearTurnupRatioData,
+  twoYearsTurnupRatioData,
   sixMonthsGuestPerCountryData,
   oneYearGuestPerCountryData,
   twoYearsGuestPerCountryData,
