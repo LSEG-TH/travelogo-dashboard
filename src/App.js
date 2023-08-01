@@ -8,6 +8,8 @@ import PieChart from './components/PieChart';
 import Header from './components/Header';
 import SparkLineChart from './components/SparkLineChart';
 import ButtonBar from './components/ButtonBar';
+import ThemeSwitcher from './components/ThemeSwitcher';
+
 import '@refinitiv-ui/elements/button';
 
 import {
@@ -125,7 +127,12 @@ function App() {
           <BarChart data={turnupRatio} yAxisLabel={'Turn up ratio (%)'} />
         </div>
         <div id='col3' className='flex flex-col col-span-1 row-span-2 border-l border-slate-200'>
-          <Header className='flex-none'>Hotel Name - Powered By Akado v1.3.1</Header>
+          <Header className='flex-none'>
+            <div className='flex justify-between items-center'>
+              <p>🏨 Hotel Name - Powered By Akado v1.3.1</p>
+              <ThemeSwitcher></ThemeSwitcher>
+            </div>
+          </Header>
           <div className='flex flex-col grow items-center justify-center border-b border-slate-200'>
             <div>
               <h1 className='text-xl'>Average Rating</h1>
