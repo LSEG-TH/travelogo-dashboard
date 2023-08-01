@@ -136,7 +136,7 @@ function App() {
           <div className='flex flex-col grow items-center justify-center border-b border-slate-200'>
             <div>
               <h1>ESG (By LSEG)</h1>
-              <h1 className='text-5xl'>$15,000</h1>
+              <h1 className='text-5xl'>6.5</h1>
             </div>
           </div>
         </div>
