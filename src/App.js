@@ -18,8 +18,15 @@ import {
   sixMonthsGuestPerCountryData,
   oneYearGuestPerCountryData,
   twoYearsGuestPerCountryData,
-  pieData,
 } from './assets/mockupData';
+
+import {
+  roomTypesData,
+  stayingLengthData,
+  visitPurposeData,
+  visitorTypeData,
+} from './assets/mockupPieData';
+
 import ButtonBar from './components/ButtonBar';
 
 function App() {
@@ -112,10 +119,22 @@ function App() {
           <LineChart data={guestPerCountryData} yAxisLabel={'Guests'} displayLegend />
         </div>
         <div className='grid grid-cols-2 col-span-2 row-span-2 gap-2 pl-4 border-b border-slate-200'>
-          <PieChart data={pieData} />
-          <PieChart data={pieData} />
-          <PieChart data={pieData} />
-          <PieChart data={pieData} />
+          <div>
+            <p className='m-4'>Visitor Type (YTD)</p>
+            <PieChart data={visitorTypeData} />
+          </div>
+          <div>
+            <p className='m-4'>Room Types (YTD)</p>
+            <PieChart data={roomTypesData} />
+          </div>
+          <div>
+            <p className='m-4'>Purpose of Visit (YTD)</p>
+            <PieChart data={visitPurposeData} />
+          </div>
+          <div>
+            <p className='m-4'>Staying Length (YTD)</p>
+            <PieChart data={stayingLengthData} />
+          </div>
         </div>
       </div>
     </div>

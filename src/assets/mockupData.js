@@ -94,15 +94,6 @@ const threeYearsSeasonalIncomeData = {
   ],
 };
 
-const pieData = {
-  labels: ['Americas', 'Europe'],
-  datasets: [
-    {
-      data: [60, 40],
-    },
-  ],
-};
-
 const sixMonthsGuestPerCountryData = {
   labels: SIX_MONTHS_LABELS,
   datasets: [
@@ -243,5 +234,4 @@ export {
   twoYearsGuestPerCountryData,
   oneYearSeasonalIncomeData,
   threeYearsSeasonalIncomeData,
-  pieData,
 };
