@@ -8,16 +8,12 @@ const ThemeSwitcher = ({ theme }) => {
   };
 
   return (
-    <div className='button-group'>
-      Theme:
-      <Toggle
-        className='theme-switcher'
-        label='light'
-        checkedLabel='dark'
-        checked={theme === 'dark'}
-        onChange={handleToggled}
-      ></Toggle>
-    </div>
+    <Toggle
+      label='☀️'
+      checkedLabel='🌙'
+      checked={sessionStorage.getItem('elf-theme') === 'dark'}
+      onChange={handleToggled}
+    ></Toggle>
   );
 };
 

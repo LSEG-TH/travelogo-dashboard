@@ -6,4 +6,7 @@ export default createComponent({
   tagName: 'ef-toggle',
   elementClass: Toggle,
   react: React,
+  events: {
+    onChange: 'checked-changed',
+  },
 });

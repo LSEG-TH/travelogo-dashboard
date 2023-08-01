@@ -12,6 +12,15 @@ function BarChart({ data, title, yAxisLabel, displayLegend = false }) {
         legend: {
           display: displayLegend,
         },
+        tooltip: {
+          callbacks: {
+            label: (tooltipItem) => {
+              let rev = tooltipItem.raw;
+              rev = rev.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+              return `${rev}%`;
+            },
+          },
+        },
       },
       scales: {
         y: {
