@@ -28,6 +28,7 @@ const sixMonthsTurnupRatioData = {
   labels: SIX_MONTHS_LABELS,
   datasets: [
     {
+      backgroundColor: '#9BD0F5',
       data: [99, 98, 99, 97.5, 93, 95],
     },
   ],
@@ -47,6 +48,7 @@ const twoYearsTurnupRatioData = {
   labels: TWO_YEARS_LABELS,
   datasets: [
     {
+      backgroundColor: '#9BD0F5',
       data: [
         99, 98, 99, 97.5, 93, 95, 96, 94.99, 100, 100, 98, 99, 99, 98, 99, 97.5, 93, 95, 96, 94.99,
         100, 100, 98, 99,
@@ -55,12 +57,21 @@ const twoYearsTurnupRatioData = {
   ],
 };
 
+const seasonalChartOptions = {
+  tension: 0.3,
+  fill: true,
+  pointStyle: 'rect',
+  borderJoinStyle: 'round',
+  borderColor: '#4bc0c0',
+  backgroundColor: '#d0eded87',
+};
+
 const oneYearSeasonalIncomeData = {
   labels: ONE_YEAR_LABEL,
   datasets: [
     {
+      ...seasonalChartOptions,
       data: [19657, 19623, 19917, 19601, 19456, 20089, 20710, 21220, 20112, 20777, 22067, 23815],
-      fill: false,
     },
   ],
 };
@@ -83,6 +94,7 @@ const threeYearsSeasonalIncomeData = {
   ],
   datasets: [
     {
+      ...seasonalChartOptions,
       data: [
         10239,
         10229,
@@ -110,7 +122,6 @@ const threeYearsSeasonalIncomeData = {
         20815,
         ...oneYearSeasonalIncomeData.datasets[0].data,
       ],
-      fill: false,
     },
   ],
 };
