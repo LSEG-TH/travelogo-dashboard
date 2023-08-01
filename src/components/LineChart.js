@@ -16,7 +16,7 @@ function LineChart({ data, title, yAxisLabel, displayLegend = false }) {
       scales: {
         y: {
           title: {
-            display: true,
+            display: !!yAxisLabel,
             text: yAxisLabel,
           },
         },
