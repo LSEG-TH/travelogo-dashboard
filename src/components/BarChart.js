@@ -24,7 +24,7 @@ function BarChart({ data, title, yAxisLabel, displayLegend = false }) {
     },
   };
 
-  return <Chart config={config} title={title}></Chart>;
+  return <Chart config={config}></Chart>;
 }
 
 export default BarChart;

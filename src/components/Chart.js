@@ -1,9 +1,27 @@
-import * as React from 'react';
-import { createComponent } from '@lit-labs/react';
-import { Chart } from '@refinitiv-ui/elements/chart';
+import '@refinitiv-ui/elements/chart';
+import { useEffect, useLayoutEffect, useRef } from 'react';
 
-export default createComponent({
-  tagName: 'ef-chart',
-  elementClass: Chart,
-  react: React,
-});
+function Chart({ config }) {
+  const chartRef = useRef();
+
+  useLayoutEffect(() => {
+    if (chartRef.current) {
+      chartRef.current.config = config;
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
+    const { current } = chartRef;
+    if (current) {
+      current.config.data = config.data;
+      if (chartRef.current.chart) {
+        current.updateChart();
+      }
+    }
+  }, [config.data]);
+
+  return <ef-chart ref={chartRef}></ef-chart>;
+}
+
+export default Chart;
