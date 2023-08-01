@@ -87,7 +87,7 @@ function App() {
 
   return (
     <div className='App'>
-      <div className='grid grid-cols-5 grid-rows-2'>
+      <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 grid-rows-2'>
         <div className='grid col-span-2 border-r border-b border-slate-200'>
           <>
             <Header>
@@ -126,7 +126,7 @@ function App() {
           </Header>
           <BarChart data={turnupRatio} yAxisLabel={'Turn up ratio (%)'} />
         </div>
-        <div id='col3' className='flex flex-col col-span-1 row-span-2 border-l border-slate-200'>
+        <div className='flex flex-col order-first col-span-2 row-span-2 border-l border-slate-200 lg:order-none lg:col-span-1'>
           <Header className='flex-none'>
             <div className='flex justify-between items-center'>
               <p>🏨 Hotel Name - Powered By Akado v1.3.1</p>
