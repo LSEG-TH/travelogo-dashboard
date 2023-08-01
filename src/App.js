@@ -13,16 +13,16 @@ import ThemeSwitcher from './components/ThemeSwitcher';
 import '@refinitiv-ui/elements/button';
 
 import {
-  oneYearTurnupRatioData,
-  oneYearSeasonalIncomeData,
-  threeYearsSeasonalIncomeData,
   sixMonthsGuestPerCountryData,
   oneYearGuestPerCountryData,
   twoYearsGuestPerCountryData,
-  twoYearsTurnupRatioData,
+} from './assets/guestsPerCountryData';
+import {
   sixMonthsTurnupRatioData,
-} from './assets/mockupData';
-
+  oneYearTurnupRatioData,
+  twoYearsTurnupRatioData,
+} from './assets/turnupRatioData';
+import { oneYearSeasonalIncomeData, threeYearsSeasonalIncomeData } from './assets/seasonalData';
 import {
   roomTypesData,
   stayingLengthData,
