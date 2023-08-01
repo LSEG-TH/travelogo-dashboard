@@ -7,9 +7,8 @@ import LineChart from './components/LineChart';
 import PieChart from './components/PieChart';
 import Header from './components/Header';
 import SparkLineChart from './components/SparkLineChart';
-
+import ButtonBar from './components/ButtonBar';
 import '@refinitiv-ui/elements/button';
-import '@refinitiv-ui/elements/button-bar';
 
 import {
   oneYearTurnupRatioData,
@@ -18,6 +17,8 @@ import {
   sixMonthsGuestPerCountryData,
   oneYearGuestPerCountryData,
   twoYearsGuestPerCountryData,
+  twoYearsTurnupRatioData,
+  sixMonthsTurnupRatioData,
 } from './assets/mockupData';
 
 import {
@@ -27,27 +28,58 @@ import {
   visitorTypeData,
 } from './assets/mockupPieData';
 
-import ButtonBar from './components/ButtonBar';
-
 function App() {
-  const [seasonalIncomeData, setSeasonalIncomeData] = useState(oneYearSeasonalIncomeData);
-  const [guestPerCountryData, setGuestPerCountryData] = useState(twoYearsGuestPerCountryData);
+  const [turnupRatio, setTurnupRatio] = useState(oneYearTurnupRatioData);
+  const [seasonalIncome, setSeasonalIncome] = useState(oneYearSeasonalIncomeData);
+  const [guestPerCountry, setGuestPerCountry] = useState(oneYearGuestPerCountryData);
 
-  function getOneYearIncome() {
+  const getOneYearIncome = () => {
     return oneYearSeasonalIncomeData.datasets[0].data;
-  }
+  };
 
-  function getAverageMonthly() {
+  const getAverageMonthly = () => {
     const sum = getOneYearIncome().reduce((a, b) => a + b);
     const average = sum / 12;
     return average.toLocaleString();
-  }
+  };
 
-  const handleChangeSeasonalIncome = (e) => {
-    if (e.target.getAttribute('id') === '3y') {
-      setSeasonalIncomeData(threeYearsSeasonalIncomeData);
+  const handleSeasonalIncomeDataChange = (event) => {
+    if (event.target.getAttribute('name') === '3y') {
+      setSeasonalIncome(threeYearsSeasonalIncomeData);
     } else {
-      setSeasonalIncomeData(oneYearSeasonalIncomeData);
+      setSeasonalIncome(oneYearSeasonalIncomeData);
+    }
+  };
+
+  const handleTurnupRatioChange = (event) => {
+    const duration = event.target.getAttribute('name');
+    switch (duration) {
+      case '2y':
+        setTurnupRatio(twoYearsTurnupRatioData);
+        break;
+      case '1y':
+        setTurnupRatio(oneYearTurnupRatioData);
+        break;
+      case '6m':
+        setTurnupRatio(sixMonthsTurnupRatioData);
+        break;
+      // no default
+    }
+  };
+
+  const handleGuestsPerCountryChange = (event) => {
+    const duration = event.target.getAttribute('name');
+    switch (duration) {
+      case '2y':
+        setGuestPerCountry(twoYearsGuestPerCountryData);
+        break;
+      case '1y':
+        setGuestPerCountry(oneYearGuestPerCountryData);
+        break;
+      case '6m':
+        setGuestPerCountry(sixMonthsGuestPerCountryData);
+        break;
+      // no default
     }
   };
 
@@ -58,30 +90,39 @@ function App() {
           <>
             <Header>
               ($) Seasonal Income
-              <ButtonBar managed slot='right' className='mr-1' ontap={handleChangeSeasonalIncome}>
-                <ef-button id='3y' toggles>
+              <ButtonBar
+                managed
+                slot='right'
+                className='mr-1'
+                ontap={handleSeasonalIncomeDataChange}
+              >
+                <ef-button name='3y' toggles>
                   3Y
                 </ef-button>
-                <ef-button id='1y' active toggles>
+                <ef-button name='1y' active toggles>
                   1Y
                 </ef-button>
               </ButtonBar>
             </Header>
-            <LineChart data={seasonalIncomeData} yAxisLabel={'Income ($)'} />
+            <LineChart data={seasonalIncome} yAxisLabel={'Income ($)'} />
           </>
         </div>
         <div className='grid col-span-2 border-b border-slate-200'>
           <Header>
             Turn up ratio
-            <ef-button-bar managed slot='right' className='mr-1'>
-              <ef-button toggles>2Y</ef-button>
-              <ef-button active toggles>
+            <ButtonBar managed slot='right' className='mr-1' ontap={handleTurnupRatioChange}>
+              <ef-button name='2y' toggles>
+                2Y
+              </ef-button>
+              <ef-button name='1y' active toggles>
                 1Y
               </ef-button>
-              <ef-button toggles>6M</ef-button>
-            </ef-button-bar>
+              <ef-button name='6m' toggles>
+                6M
+              </ef-button>
+            </ButtonBar>
           </Header>
-          <BarChart data={oneYearTurnupRatioData} yAxisLabel={'Turn up ratio (%)'} />
+          <BarChart data={turnupRatio} yAxisLabel={'Turn up ratio (%)'} />
         </div>
         <div id='col3' className='flex flex-col col-span-1 row-span-2 border-l border-slate-200'>
           <Header className='flex-none'>Hotel Name - Powered By Akado v1.3.1</Header>
@@ -108,15 +149,19 @@ function App() {
         <div className='grid col-span-2 border-r border-b border-slate-200'>
           <Header>
             Guests per country
-            <ef-button-bar managed slot='right' className='mr-1'>
-              <ef-button toggles>2Y</ef-button>
-              <ef-button active toggles>
+            <ButtonBar managed slot='right' className='mr-1' ontap={handleGuestsPerCountryChange}>
+              <ef-button name='2y' toggles>
+                2Y
+              </ef-button>
+              <ef-button name='1y' active toggles>
                 1Y
               </ef-button>
-              <ef-button toggles>6M</ef-button>
-            </ef-button-bar>
+              <ef-button name='6m' toggles>
+                6M
+              </ef-button>
+            </ButtonBar>
           </Header>
-          <LineChart data={guestPerCountryData} yAxisLabel={'Guests'} displayLegend />
+          <LineChart data={guestPerCountry} yAxisLabel={'Guests'} displayLegend />
         </div>
         <div className='grid grid-cols-2 col-span-2 row-span-2 gap-2 pl-4 border-b border-slate-200'>
           <div>

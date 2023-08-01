@@ -1,4 +1,3 @@
-import React from 'react';
 import Chart from './Chart';
 
 function BarChart({ data, title, yAxisLabel, displayLegend = false }) {
