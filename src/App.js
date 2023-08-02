@@ -119,7 +119,7 @@ function App() {
               </ef-button>
             </ButtonBar>
           </Header>
-          <LineChart data={seasonalIncome} yAxisLabel={'Income ($)'} />
+          <LineChart data={seasonalIncome} yAxisLabel={'Income ($)'} displayLegend />
         </div>
         <div className='grid col-span-2 chart-container'>
           <Header className='mb-4'>
