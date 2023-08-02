@@ -1,6 +1,6 @@
 import Chart from './Chart';
 
-function PieChart({ data }) {
+function PieChart({ data, className = 'max-h-36' }) {
   const config = {
     type: 'pie',
     data,
@@ -20,7 +20,7 @@ function PieChart({ data }) {
     },
   };
 
-  return <Chart config={config}></Chart>;
+  return <Chart config={config} className={className}></Chart>;
 }
 
 export default PieChart;

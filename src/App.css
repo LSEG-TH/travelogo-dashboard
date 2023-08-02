@@ -1,0 +1,12 @@
+.App {
+  background-color: var(--primary-background-color);
+  padding: 2% 5%;
+}
+
+.chart-container {
+  background-color: var(--chart-container-background-color);
+}
+
+.accent-bg {
+  background-color: var(--accent-color);
+}

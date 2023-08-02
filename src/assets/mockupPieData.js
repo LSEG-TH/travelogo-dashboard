@@ -1,5 +1,5 @@
 const visitorTypeData = {
-  labels: ['solo', 'friends', 'family'],
+  labels: ['Solo', 'Friends', 'Family'],
   datasets: [
     {
       data: [17, 40, 43],
@@ -8,7 +8,7 @@ const visitorTypeData = {
 };
 
 const roomTypesData = {
-  labels: ['standard', 'deluxe', 'villa'],
+  labels: ['Standard', 'Deluxe', 'Villa'],
   datasets: [
     {
       data: [50, 32, 18],
@@ -19,7 +19,7 @@ const roomTypesData = {
 };
 
 const visitPurposeData = {
-  labels: ['leisure', 'work'],
+  labels: ['Leisure', 'Work'],
   datasets: [
     {
       data: [65, 35],
@@ -30,7 +30,7 @@ const visitPurposeData = {
 };
 
 const stayingLengthData = {
-  labels: ['1 day', '2 days', '1 Week', '1 Month'],
+  labels: ['1 Day', '2 Days', '1 Week', '1 Month'],
   datasets: [
     {
       data: [26, 48, 20, 6],

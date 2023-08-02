@@ -10,8 +10,6 @@ import SparkLineChart from './components/SparkLineChart';
 import ButtonBar from './components/ButtonBar';
 import ThemeSwitcher from './components/ThemeSwitcher';
 
-import '@refinitiv-ui/elements/button';
-
 import {
   sixMonthsGuestPerCountryData,
   oneYearGuestPerCountryData,
@@ -29,11 +27,23 @@ import {
   visitPurposeData,
   visitorTypeData,
 } from './assets/mockupPieData';
+import Icon from './components/Icon';
 
 function App() {
   const [turnupRatio, setTurnupRatio] = useState(oneYearTurnupRatioData);
   const [seasonalIncome, setSeasonalIncome] = useState(oneYearSeasonalIncomeData);
   const [guestPerCountry, setGuestPerCountry] = useState(oneYearGuestPerCountryData);
+
+  // * Replace mockup data with
+  // const [chartData, setChartData] = useState({});
+  // useEffect(() => {
+  //   const getChartData = async () => {
+  //     const URL = 'https://www.getData.com';
+  //     const { data } = await axios.get(URL);
+  //     setChartData(data);
+  //   }
+  //   getChartData();
+  // })
 
   const getOneYearIncome = () => {
     return oneYearSeasonalIncomeData.datasets[0].data;
@@ -81,36 +91,38 @@ function App() {
       case '6m':
         setGuestPerCountry(sixMonthsGuestPerCountryData);
         break;
-      // no default
+      default:
+        break;
     }
   };
 
   return (
     <div className='App'>
-      <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 grid-rows-2'>
-        <div className='grid col-span-2 border-r border-b border-slate-200'>
-          <>
-            <Header>
-              Seasonal Income ($)
-              <ButtonBar
-                managed
-                slot='right'
-                className='mr-1'
-                ontap={handleSeasonalIncomeDataChange}
-              >
-                <ef-button name='3y' toggles>
-                  3Y
-                </ef-button>
-                <ef-button name='1y' active toggles>
-                  1Y
-                </ef-button>
-              </ButtonBar>
-            </Header>
-            <LineChart data={seasonalIncome} yAxisLabel={'Income ($)'} />
-          </>
+      <Header className='flex-none mb-4 font-bold text-sm h-9'>
+        <div className='flex justify-between items-center'>
+          <div className='flex justify-between items-center'>
+            <Icon className='mr-2' icon='home'></Icon> Hotel Name - Powered By TRAVELOGO v1.3.1
+          </div>
+          <ThemeSwitcher></ThemeSwitcher>
         </div>
-        <div className='grid col-span-2 border-b border-slate-200'>
-          <Header>
+      </Header>
+      <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 grid-rows-1 gap-4'>
+        <div className='grid col-span-2 chart-container'>
+          <Header className='mb-4'>
+            Seasonal Income ($)
+            <ButtonBar managed slot='right' className='mr-1' ontap={handleSeasonalIncomeDataChange}>
+              <ef-button name='3y' toggles>
+                3Y
+              </ef-button>
+              <ef-button name='1y' active toggles>
+                1Y
+              </ef-button>
+            </ButtonBar>
+          </Header>
+          <LineChart data={seasonalIncome} yAxisLabel={'Income ($)'} />
+        </div>
+        <div className='grid col-span-2 chart-container'>
+          <Header className='mb-4'>
             Turn up ratio (%)
             <ButtonBar managed slot='right' className='mr-1' ontap={handleTurnupRatioChange}>
               <ef-button name='2y' toggles>
@@ -126,34 +138,32 @@ function App() {
           </Header>
           <BarChart data={turnupRatio} yAxisLabel={'Turn up ratio (%)'} />
         </div>
-        <div className='flex flex-col order-first col-span-2 row-span-2 border-l border-slate-200 lg:order-none lg:col-span-1'>
-          <Header className='flex-none'>
-            <div className='flex justify-between items-center'>
-              <p>🏨 Hotel Name - Powered By Akado v1.3.1</p>
-              <ThemeSwitcher></ThemeSwitcher>
-            </div>
-          </Header>
-          <div className='flex flex-col grow items-center justify-center border-b border-slate-200'>
+        <div className='flex flex-col order-first col-span-2 row-span-2 lg:order-none lg:col-span-1 text-center'>
+          <div className='flex flex-col grow items-center justify-center accent-bg'>
             <div>
               <h1 className='text-xl'>Average Rating</h1>
               <h1 className='text-6xl'>8.1/10</h1>
             </div>
           </div>
-          <div className='flex flex-col grow items-center justify-center border-b border-slate-200'>
+          <div className='flex flex-col grow items-center justify-center'>
             <div>
               <h1 className='text-xl'>Average Monthly $</h1>
-              <h1 className='text-6xl'>${getAverageMonthly()}</h1>
+              <h1 className='text-4xl'>${getAverageMonthly()}</h1>
             </div>
-            <SparkLineChart className='w-full h-44 pt-6' data={getOneYearIncome()}></SparkLineChart>
+            <SparkLineChart
+              className='w-full h-44 pt-6'
+              data={getOneYearIncome()}
+              referenceValue={10000}
+            ></SparkLineChart>
           </div>
-          <div className='flex flex-col grow items-center justify-center border-b border-slate-200'>
+          <div className='flex flex-col grow items-center justify-center'>
             <div>
               <h1 className='text-xl'>ESG (By LSEG)</h1>
               <h1 className='text-6xl'>6.5</h1>
             </div>
           </div>
         </div>
-        <div className='grid col-span-2 border-r border-b border-slate-200'>
+        <div className='grid col-span-2 chart-container'>
           <Header>
             Guests per country
             <ButtonBar managed slot='right' className='mr-1' ontap={handleGuestsPerCountryChange}>
@@ -170,21 +180,21 @@ function App() {
           </Header>
           <LineChart data={guestPerCountry} yAxisLabel={'Guests'} displayLegend />
         </div>
-        <div className='grid grid-cols-2 col-span-2 row-span-2 gap-2 pl-4 border-b border-slate-200'>
+        <div className='grid grid-cols-2 col-span-2 row-span-1 gap-2 chart-container'>
           <div>
-            <p className='m-4'>Visitor Type (YTD)</p>
+            <Header className='mb-3'>Visitor Type (YTD)</Header>
             <PieChart data={visitorTypeData} />
           </div>
           <div>
-            <p className='m-4'>Room Types (YTD)</p>
+            <Header className='mb-3'>Room Types (YTD)</Header>
             <PieChart data={roomTypesData} />
           </div>
           <div>
-            <p className='m-4'>Purpose of Visit (YTD)</p>
+            <Header className='mb-3'>Purpose of Visit (YTD)</Header>
             <PieChart data={visitPurposeData} />
           </div>
           <div>
-            <p className='m-4'>Staying Length (YTD)</p>
+            <Header className='mb-3'>Staying Length (YTD)</Header>
             <PieChart data={stayingLengthData} />
           </div>
         </div>

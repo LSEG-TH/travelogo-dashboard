@@ -1,7 +1,7 @@
 import '@refinitiv-ui/elements/chart';
 import { useEffect, useLayoutEffect, useRef } from 'react';
 
-function Chart({ config }) {
+function Chart({ config, className }) {
   const chartRef = useRef();
 
   useLayoutEffect(() => {
@@ -21,7 +21,7 @@ function Chart({ config }) {
     }
   }, [config.data]);
 
-  return <ef-chart ref={chartRef}></ef-chart>;
+  return <ef-chart ref={chartRef} class={className}></ef-chart>;
 }
 
 export default Chart;

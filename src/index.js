@@ -7,6 +7,7 @@ import reportWebVitals from './reportWebVitals';
 const loadTheme = () => {
   return new Promise((resolve) => {
     const theme = sessionStorage.getItem('elf-theme') || 'light';
+    document.body.setAttribute('color-scheme', theme);
     import(`./themes/${theme}`);
     resolve(theme);
   });
