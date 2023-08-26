@@ -17,7 +17,7 @@ import { getHost } from './services/hostService';
 function App() {
   const [sixMonthsTurnupRatioData, setSixMonthsTurnupRatioData] = useState({});
   useEffect(() => {
-    axios.get(`${getHost()}/api/sixMonthsTurnupRatioData`, {}).then((response) => {
+    axios.get(`${getHost()}/api/v1/sixMonthsTurnupRatioData`, {}).then((response) => {
       const data = response.data;
       setSixMonthsTurnupRatioData(data);
     });
@@ -26,7 +26,7 @@ function App() {
   const [oneYearTurnupRatioData, setOneYearTurnupRatioData] = useState({});
 
   useEffect(() => {
-    axios.get(`${getHost()}/api/oneYearTurnupRatioData`, {}).then((response) => {
+    axios.get(`${getHost()}/api/v1/oneYearTurnupRatioData`, {}).then((response) => {
       const data = response.data;
       setOneYearTurnupRatioData(data);
     });
@@ -34,7 +34,7 @@ function App() {
 
   const [twoYearsTurnupRatioData, setTwoYearsTurnupRatioData] = useState({});
   useEffect(() => {
-    axios.get(`${getHost()}/api/twoYearsTurnupRatioData`, {}).then((response) => {
+    axios.get(`${getHost()}/api/v1/twoYearsTurnupRatioData`, {}).then((response) => {
       const data = response.data;
       setTwoYearsTurnupRatioData(data);
     });
@@ -42,7 +42,7 @@ function App() {
 
   const [seasonalIncome, setSeasonalIncome] = useState({});
   useEffect(() => {
-    axios.get(`${getHost()}/api/oneYearSeasonalIncomeData`, {}).then((response) => {
+    axios.get(`${getHost()}/api/v1/oneYearSeasonalIncomeData`, {}).then((response) => {
       const data = response.data;
       setSeasonalIncome(data);
     });
@@ -50,7 +50,7 @@ function App() {
 
   const [seasonalIncomeThreeYears, setSeasonalIncomeThreeYears] = useState({});
   useEffect(() => {
-    axios.get(`${getHost()}/api/threeYearsSeasonalIncomeData`, {}).then((response) => {
+    axios.get(`${getHost()}/api/v1/threeYearsSeasonalIncomeData`, {}).then((response) => {
       const data = response.data;
       setSeasonalIncomeThreeYears(data);
     });
@@ -58,7 +58,7 @@ function App() {
 
   const [guestPerCountry, setGuestPerCountry] = useState({});
   useEffect(() => {
-    axios.get(`${getHost()}/api/oneYearGuestPerCountryData`, {}).then((response) => {
+    axios.get(`${getHost()}/api/v1/oneYearGuestPerCountryData`, {}).then((response) => {
       const data = response.data;
       setGuestPerCountry(data);
     });
@@ -66,7 +66,7 @@ function App() {
 
   const [sixMonthsGuestPerCountryData, setSixMonthsGuestPerCountryData] = useState({});
   useEffect(() => {
-    axios.get(`${getHost()}/api/sixMonthsGuestPerCountryData`, {}).then((response) => {
+    axios.get(`${getHost()}/api/v1/sixMonthsGuestPerCountryData`, {}).then((response) => {
       const data = response.data;
       setSixMonthsGuestPerCountryData(data);
     });
@@ -74,7 +74,7 @@ function App() {
 
   const [oneYearGuestPerCountryData, setOneYearGuestPerCountryData] = useState({});
   useEffect(() => {
-    axios.get(`${getHost()}/api/oneYearGuestPerCountryData`, {}).then((response) => {
+    axios.get(`${getHost()}/api/v1/oneYearGuestPerCountryData`, {}).then((response) => {
       const data = response.data;
       setOneYearGuestPerCountryData(data);
     });
@@ -82,7 +82,7 @@ function App() {
 
   const [twoYearsGuestPerCountryData, setTwoYearsGuestPerCountryData] = useState({});
   useEffect(() => {
-    axios.get(`${getHost()}/api/twoYearsGuestPerCountryData`, {}).then((response) => {
+    axios.get(`${getHost()}/api/v1/twoYearsGuestPerCountryData`, {}).then((response) => {
       const data = response.data;
       setTwoYearsGuestPerCountryData(data);
     });
@@ -90,7 +90,7 @@ function App() {
 
   const [roomTypesData, setRoomTypesData] = useState({});
   useEffect(() => {
-    axios.get(`${getHost()}/api/roomTypesData`, {}).then((response) => {
+    axios.get(`${getHost()}/api/v1/roomTypesData`, {}).then((response) => {
       const data = response.data;
       setRoomTypesData(data);
     });
@@ -98,7 +98,7 @@ function App() {
 
   const [stayingLengthData, setStayingLengthData] = useState({});
   useEffect(() => {
-    axios.get(`${getHost()}/api/stayingLengthData`, {}).then((response) => {
+    axios.get(`${getHost()}/api/v1/stayingLengthData`, {}).then((response) => {
       const data = response.data;
       setStayingLengthData(data);
     });
@@ -106,7 +106,7 @@ function App() {
 
   const [visitPurposeData, setVisitPurposeData] = useState({});
   useEffect(() => {
-    axios.get(`${getHost()}/api/visitPurposeData`, {}).then((response) => {
+    axios.get(`${getHost()}/api/v1/visitPurposeData`, {}).then((response) => {
       const data = response.data;
       setVisitPurposeData(data);
     });
@@ -114,7 +114,7 @@ function App() {
 
   const [visitorTypeData, setVisitorTypeData] = useState({});
   useEffect(() => {
-    axios.get(`${getHost()}/api/visitorTypeData`, {}).then((response) => {
+    axios.get(`${getHost()}/api/v1/visitorTypeData`, {}).then((response) => {
       const data = response.data;
       setVisitorTypeData(data);
     });
