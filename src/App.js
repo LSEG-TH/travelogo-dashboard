@@ -178,7 +178,7 @@ function App() {
       <Header className='flex-none mb-4 font-bold text-sm h-9'>
         <div className='flex justify-between items-center'>
           <div className='flex justify-between items-center'>
-            <Icon className='mr-2' icon='home'></Icon> LSEG Hotel - Powered By TRAVELOGO v1.3.2
+            <Icon className='mr-2' icon='home'></Icon> LSEG Hotel - Powered By TRAVELOGO v1.3.3
           </div>
           <ThemeSwitcher></ThemeSwitcher>
         </div>
