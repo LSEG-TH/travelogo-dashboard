@@ -1,21 +1,21 @@
 {
   "files": {
-    "main.css": "/travelogo-dashboard/static/css/main.8d871681.css",
-    "main.js": "/travelogo-dashboard/static/js/main.d8dc81a4.js",
+    "main.css": "/travelogo-dashboard/static/css/main.cd1d521e.css",
+    "main.js": "/travelogo-dashboard/static/js/main.79a86d43.js",
     "static/js/642.e066250c.chunk.js": "/travelogo-dashboard/static/js/642.e066250c.chunk.js",
     "static/js/386.f742d797.chunk.js": "/travelogo-dashboard/static/js/386.f742d797.chunk.js",
     "static/js/787.46c6dd4d.chunk.js": "/travelogo-dashboard/static/js/787.46c6dd4d.chunk.js",
     "static/js/147.11f7fb06.chunk.js": "/travelogo-dashboard/static/js/147.11f7fb06.chunk.js",
     "static/js/144.6cd82a2f.chunk.js": "/travelogo-dashboard/static/js/144.6cd82a2f.chunk.js",
     "index.html": "/travelogo-dashboard/index.html",
-    "main.8d871681.css.map": "/travelogo-dashboard/static/css/main.8d871681.css.map",
-    "main.d8dc81a4.js.map": "/travelogo-dashboard/static/js/main.d8dc81a4.js.map",
+    "main.cd1d521e.css.map": "/travelogo-dashboard/static/css/main.cd1d521e.css.map",
+    "main.79a86d43.js.map": "/travelogo-dashboard/static/js/main.79a86d43.js.map",
     "787.46c6dd4d.chunk.js.map": "/travelogo-dashboard/static/js/787.46c6dd4d.chunk.js.map",
     "147.11f7fb06.chunk.js.map": "/travelogo-dashboard/static/js/147.11f7fb06.chunk.js.map",
     "144.6cd82a2f.chunk.js.map": "/travelogo-dashboard/static/js/144.6cd82a2f.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.8d871681.css",
-    "static/js/main.d8dc81a4.js"
+    "static/css/main.cd1d521e.css",
+    "static/js/main.79a86d43.js"
   ]
 }
