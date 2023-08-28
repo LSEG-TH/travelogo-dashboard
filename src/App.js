@@ -1,6 +1,7 @@
 import './App.css';
 
 import { useState, useEffect } from 'react';
+import axios from 'axios';
 
 import BarChart from './components/BarChart';
 import LineChart from './components/LineChart';
@@ -9,9 +10,9 @@ import Header from './components/Header';
 import SparkLineChart from './components/SparkLineChart';
 import ButtonBar from './components/ButtonBar';
 import ThemeSwitcher from './components/ThemeSwitcher';
-import axios from 'axios';
-
+import BookingsTable from './components/BookingsTable';
 import Icon from './components/Icon';
+
 import { getHost } from './services/hostService';
 
 function App() {
@@ -120,6 +121,8 @@ function App() {
     });
   }, []);
 
+  const [displayTable, setDisplayTable] = useState('bookings');
+
   const getOneYearIncome = () => {
     return Object.keys(seasonalIncome).length ? seasonalIncome.datasets[0]?.data || [] : [];
   };
@@ -167,6 +170,21 @@ function App() {
         break;
       case '6m':
         setGuestPerCountry(sixMonthsGuestPerCountryData);
+        break;
+      default:
+        break;
+    }
+  };
+
+  const handleTableChange = (event) => {
+    const selectedTable = event.target.getAttribute('name');
+
+    switch (selectedTable) {
+      case 'bookings':
+        setDisplayTable('bookings');
+        break;
+      case 'guests':
+        setDisplayTable('guests');
         break;
       default:
         break;
@@ -275,6 +293,11 @@ function App() {
             <PieChart data={stayingLengthData} />
           </div>
         </div>
+      </div>
+
+      <div className='mt-4'>
+        <Header className='px-2 py-4'>Bookings</Header>
+        <BookingsTable />
       </div>
     </div>
   );
