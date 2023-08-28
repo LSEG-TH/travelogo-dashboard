@@ -1,6 +1,6 @@
 import './App.css';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 import BarChart from './components/BarChart';
 import LineChart from './components/LineChart';
@@ -9,57 +9,134 @@ import Header from './components/Header';
 import SparkLineChart from './components/SparkLineChart';
 import ButtonBar from './components/ButtonBar';
 import ThemeSwitcher from './components/ThemeSwitcher';
+import axios from 'axios';
 
-import {
-  sixMonthsGuestPerCountryData,
-  oneYearGuestPerCountryData,
-  twoYearsGuestPerCountryData,
-} from './assets/guestsPerCountryData';
-import {
-  sixMonthsTurnupRatioData,
-  oneYearTurnupRatioData,
-  twoYearsTurnupRatioData,
-} from './assets/turnupRatioData';
-import { oneYearSeasonalIncomeData, threeYearsSeasonalIncomeData } from './assets/seasonalData';
-import {
-  roomTypesData,
-  stayingLengthData,
-  visitPurposeData,
-  visitorTypeData,
-} from './assets/mockupPieData';
 import Icon from './components/Icon';
+import { getHost } from './services/hostService';
 
 function App() {
-  const [turnupRatio, setTurnupRatio] = useState(oneYearTurnupRatioData);
-  const [seasonalIncome, setSeasonalIncome] = useState(oneYearSeasonalIncomeData);
-  const [guestPerCountry, setGuestPerCountry] = useState(oneYearGuestPerCountryData);
+  const [sixMonthsTurnupRatioData, setSixMonthsTurnupRatioData] = useState({});
+  useEffect(() => {
+    axios.get(`${getHost()}/api/v1/sixMonthsTurnupRatioData`, {}).then((response) => {
+      const data = response.data;
+      setSixMonthsTurnupRatioData(data);
+    });
+  }, []);
 
-  // * Replace mockup data with
-  // const [chartData, setChartData] = useState({});
-  // useEffect(() => {
-  //   const getChartData = async () => {
-  //     const URL = 'https://www.getData.com';
-  //     const { data } = await axios.get(URL);
-  //     setChartData(data);
-  //   }
-  //   getChartData();
-  // })
+  const [oneYearTurnupRatioData, setOneYearTurnupRatioData] = useState({});
+
+  useEffect(() => {
+    axios.get(`${getHost()}/api/v1/oneYearTurnupRatioData`, {}).then((response) => {
+      const data = response.data;
+      setOneYearTurnupRatioData(data);
+    });
+  }, []);
+
+  const [twoYearsTurnupRatioData, setTwoYearsTurnupRatioData] = useState({});
+  useEffect(() => {
+    axios.get(`${getHost()}/api/v1/twoYearsTurnupRatioData`, {}).then((response) => {
+      const data = response.data;
+      setTwoYearsTurnupRatioData(data);
+    });
+  }, []);
+
+  const [seasonalIncome, setSeasonalIncome] = useState({});
+  useEffect(() => {
+    axios.get(`${getHost()}/api/v1/oneYearSeasonalIncomeData`, {}).then((response) => {
+      const data = response.data;
+      setSeasonalIncome(data);
+    });
+  }, []);
+
+  const [seasonalIncomeThreeYears, setSeasonalIncomeThreeYears] = useState({});
+  useEffect(() => {
+    axios.get(`${getHost()}/api/v1/threeYearsSeasonalIncomeData`, {}).then((response) => {
+      const data = response.data;
+      setSeasonalIncomeThreeYears(data);
+    });
+  }, []);
+
+  const [guestPerCountry, setGuestPerCountry] = useState({});
+  useEffect(() => {
+    axios.get(`${getHost()}/api/v1/oneYearGuestPerCountryData`, {}).then((response) => {
+      const data = response.data;
+      setGuestPerCountry(data);
+    });
+  }, []);
+
+  const [sixMonthsGuestPerCountryData, setSixMonthsGuestPerCountryData] = useState({});
+  useEffect(() => {
+    axios.get(`${getHost()}/api/v1/sixMonthsGuestPerCountryData`, {}).then((response) => {
+      const data = response.data;
+      setSixMonthsGuestPerCountryData(data);
+    });
+  }, []);
+
+  const [oneYearGuestPerCountryData, setOneYearGuestPerCountryData] = useState({});
+  useEffect(() => {
+    axios.get(`${getHost()}/api/v1/oneYearGuestPerCountryData`, {}).then((response) => {
+      const data = response.data;
+      setOneYearGuestPerCountryData(data);
+    });
+  }, []);
+
+  const [twoYearsGuestPerCountryData, setTwoYearsGuestPerCountryData] = useState({});
+  useEffect(() => {
+    axios.get(`${getHost()}/api/v1/twoYearsGuestPerCountryData`, {}).then((response) => {
+      const data = response.data;
+      setTwoYearsGuestPerCountryData(data);
+    });
+  }, []);
+
+  const [roomTypesData, setRoomTypesData] = useState({});
+  useEffect(() => {
+    axios.get(`${getHost()}/api/v1/roomTypesData`, {}).then((response) => {
+      const data = response.data;
+      setRoomTypesData(data);
+    });
+  }, []);
+
+  const [stayingLengthData, setStayingLengthData] = useState({});
+  useEffect(() => {
+    axios.get(`${getHost()}/api/v1/stayingLengthData`, {}).then((response) => {
+      const data = response.data;
+      setStayingLengthData(data);
+    });
+  }, []);
+
+  const [visitPurposeData, setVisitPurposeData] = useState({});
+  useEffect(() => {
+    axios.get(`${getHost()}/api/v1/visitPurposeData`, {}).then((response) => {
+      const data = response.data;
+      setVisitPurposeData(data);
+    });
+  }, []);
+
+  const [visitorTypeData, setVisitorTypeData] = useState({});
+  useEffect(() => {
+    axios.get(`${getHost()}/api/v1/visitorTypeData`, {}).then((response) => {
+      const data = response.data;
+      setVisitorTypeData(data);
+    });
+  }, []);
 
   const getOneYearIncome = () => {
-    return oneYearSeasonalIncomeData.datasets[0].data;
+    return Object.keys(seasonalIncome).length ? seasonalIncome.datasets[0]?.data || [] : [];
   };
 
   const getAverageMonthly = () => {
-    const sum = getOneYearIncome().reduce((a, b) => a + b);
-    const average = sum / 12;
-    return average.toLocaleString();
+    if (getOneYearIncome().length) {
+      const sum = getOneYearIncome().reduce((a, b) => a + b);
+      const average = sum / 12;
+      return average.toLocaleString();
+    }
   };
 
   const handleSeasonalIncomeDataChange = (event) => {
     if (event.target.getAttribute('name') === '3y') {
-      setSeasonalIncome(threeYearsSeasonalIncomeData);
+      setSeasonalIncome(seasonalIncomeThreeYears);
     } else {
-      setSeasonalIncome(oneYearSeasonalIncomeData);
+      setSeasonalIncome(seasonalIncome);
     }
   };
 
@@ -67,13 +144,13 @@ function App() {
     const duration = event.target.getAttribute('name');
     switch (duration) {
       case '2y':
-        setTurnupRatio(twoYearsTurnupRatioData);
+        setOneYearTurnupRatioData(twoYearsTurnupRatioData);
         break;
       case '1y':
-        setTurnupRatio(oneYearTurnupRatioData);
+        setOneYearTurnupRatioData(oneYearTurnupRatioData);
         break;
       case '6m':
-        setTurnupRatio(sixMonthsTurnupRatioData);
+        setOneYearTurnupRatioData(sixMonthsTurnupRatioData);
         break;
       // no default
     }
@@ -136,7 +213,7 @@ function App() {
               </ef-button>
             </ButtonBar>
           </Header>
-          <BarChart data={turnupRatio} yAxisLabel={'Turn up ratio (%)'} />
+          <BarChart data={oneYearTurnupRatioData} yAxisLabel={'Turn up ratio (%)'} />
         </div>
         <div className='flex flex-col order-first col-span-2 row-span-2 lg:order-none lg:col-span-1 text-center'>
           <div className='flex flex-col grow items-center justify-center accent-bg'>
