@@ -6,56 +6,7 @@ import Flag from './Flag';
 import Icon from './Icon';
 import Pill from './Pill';
 
-export const BookingsTable = () => {
-  const [bookings, setBookings] = useState([]);
-  useEffect(() => {
-    axios.get(`${getHost()}/api/v1/booking`, {}).then((response) => {
-      const data = response.data.bookings;
-      setBookings(data);
-    });
-  }, []);
-
-  const [guests, setGuests] = useState([]);
-  useEffect(() => {
-    axios.get(`${getHost()}/api/v1/guest`, {}).then((response) => {
-      const data = response.data.guests;
-      setGuests(data);
-    });
-  }, []);
-
-  const [transactions, setTransactions] = useState([]);
-  useEffect(() => {
-    axios.get(`${getHost()}/api/v1/transaction`, {}).then((response) => {
-      const data = response.data.transactions;
-      setTransactions(data);
-    });
-  }, []);
-
-  const [reviews, setReviews] = useState([]);
-  useEffect(() => {
-    axios.get(`${getHost()}/api/v1/review`, {}).then((response) => {
-      const data = response.data.reviews;
-      setReviews(data);
-    });
-  }, []);
-
-  useEffect(() => {
-    const rows = bookings.map((booking) => {
-      const haveEqualId = (record) => record.booking_id === booking.booking_id;
-      const reviewWithEqualId = reviews.find(haveEqualId);
-      const guestWithEqualId = guests.find(haveEqualId);
-      const transactionWithEqualId = transactions.find(haveEqualId);
-      return Object.assign(
-        {},
-        booking,
-        reviewWithEqualId,
-        transactionWithEqualId,
-        guestWithEqualId,
-      );
-    });
-    setBookings([...rows]);
-  }, [guests, transactions, reviews]);
-
+export const BookingsTable = ({ bookings }) => {
   const getStatusColor = (status) => {
     return status === 'confirmed' ? 'text-green-600' : 'text-red-600';
   };
@@ -77,19 +28,19 @@ export const BookingsTable = () => {
                   scope='col'
                   className='px-6 py-3 text-xs font-bold text-left text-gray-500 uppercase '
                 >
-                  Guest(s)
-                </th>
-                <th
-                  scope='col'
-                  className='px-6 py-3 text-xs font-bold text-left text-gray-500 uppercase '
-                >
-                  Visit, Purpose
+                  Guest Info
                 </th>
                 <th
                   scope='col'
                   className='px-6 py-3 text-xs font-bold text-left text-gray-500 uppercase '
                 >
                   Room Type (Days)
+                </th>
+                <th
+                  scope='col'
+                  className='px-6 py-3 text-xs font-bold text-left text-gray-500 uppercase '
+                >
+                  Visit, Purpose
                 </th>
                 <th
                   scope='col'
@@ -152,14 +103,14 @@ export const BookingsTable = () => {
                         <span className='font-light'>PAX</span>
                       </div>
                     </td>
-                    <td className='px-6 py-4 text-sm whitespace-nowrap capitalize'>
-                      {visit_type}, {visit_purpose}
-                    </td>
                     <td className='px-6 py-4 text-sm font-medium whitespace-nowrap capitalize'>
                       {room_type}{' '}
                       <span className='font-light'>
                         {visit_length_day} {visit_length_day > 1 ? 'Days' : 'Day'}
                       </span>
+                    </td>
+                    <td className='px-6 py-4 text-sm whitespace-nowrap capitalize'>
+                      {visit_type}, {visit_purpose}
                     </td>
                     <td className='px-6 py-4 text-sm text-center whitespace-nowrap'>
                       <div className='flex items-center '>

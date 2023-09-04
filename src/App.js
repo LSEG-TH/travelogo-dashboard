@@ -125,6 +125,63 @@ function App() {
     });
   }, []);
 
+  const [bookings, setBookings] = useState([]);
+  useEffect(() => {
+    axios.get(`${getHost()}/api/v1/booking`, {}).then((response) => {
+      const data = response.data.bookings;
+      setBookings(data);
+    });
+  }, []);
+
+  const [guests, setGuests] = useState([]);
+  useEffect(() => {
+    axios.get(`${getHost()}/api/v1/guest`, {}).then((response) => {
+      const data = response.data.guests;
+      setGuests(data);
+    });
+  }, []);
+
+  const [transactions, setTransactions] = useState([]);
+  useEffect(() => {
+    axios.get(`${getHost()}/api/v1/transaction`, {}).then((response) => {
+      const data = response.data.transactions;
+      setTransactions(data);
+    });
+  }, []);
+
+  const [reviews, setReviews] = useState([]);
+  const [averageRating, setAverageRating] = useState(0);
+  useEffect(() => {
+    axios.get(`${getHost()}/api/v1/review`, {}).then((response) => {
+      const reviews = response.data.reviews;
+      const totalScore = reviews
+        .map((review) => parseInt(review.score))
+        .reduce(function (sum, score) {
+          return sum + score;
+        });
+      const averageScore = totalScore / reviews.length;
+      setReviews(reviews);
+      setAverageRating(averageScore);
+    });
+  }, []);
+
+  useEffect(() => {
+    const rows = bookings.map((booking) => {
+      const haveEqualId = (record) => record.booking_id === booking.booking_id;
+      const reviewWithEqualId = reviews.find(haveEqualId);
+      const guestWithEqualId = guests.find(haveEqualId);
+      const transactionWithEqualId = transactions.find(haveEqualId);
+      return Object.assign(
+        {},
+        booking,
+        reviewWithEqualId,
+        transactionWithEqualId,
+        guestWithEqualId,
+      );
+    });
+    setBookings([...rows]);
+  }, [guests, transactions, reviews]);
+
   const getOneYearIncome = () => {
     return Object.keys(seasonalIncome).length ? seasonalIncome.datasets[0]?.data || [] : [];
   };
@@ -225,7 +282,7 @@ function App() {
           <div className='flex flex-col grow items-center justify-center accent-bg'>
             <div>
               <h1 className='text-xl'>Average Rating</h1>
-              <h1 className='text-6xl'>8.1/10</h1>
+              <h1 className='text-6xl'>{averageRating}/10</h1>
             </div>
           </div>
           <div className='flex flex-col grow items-center justify-center'>
@@ -285,7 +342,7 @@ function App() {
 
       <div className='mt-4'>
         <Header>Bookings</Header>
-        <BookingsTable />
+        <BookingsTable bookings={bookings} />
       </div>
     </div>
   );
