@@ -12,7 +12,9 @@ import ButtonBar from './components/ButtonBar';
 import ThemeSwitcher from './components/ThemeSwitcher';
 import BookingsTable from './components/BookingsTable';
 import Icon from './components/Icon';
+import Rating from './components/Rating';
 
+import packageJson from '../package.json';
 import { getHost } from './services/hostService';
 
 function App() {
@@ -42,10 +44,12 @@ function App() {
   }, []);
 
   const [seasonalIncome, setSeasonalIncome] = useState({});
+  const [seasonalIncomeOneYear, setSeasonalIncomeOneYear] = useState({});
   useEffect(() => {
     axios.get(`${getHost()}/api/v1/oneYearSeasonalIncomeData`, {}).then((response) => {
       const data = response.data;
       setSeasonalIncome(data);
+      setSeasonalIncomeOneYear(data);
     });
   }, []);
 
@@ -121,8 +125,6 @@ function App() {
     });
   }, []);
 
-  const [displayTable, setDisplayTable] = useState('bookings');
-
   const getOneYearIncome = () => {
     return Object.keys(seasonalIncome).length ? seasonalIncome.datasets[0]?.data || [] : [];
   };
@@ -139,7 +141,7 @@ function App() {
     if (event.target.getAttribute('name') === '3y') {
       setSeasonalIncome(seasonalIncomeThreeYears);
     } else {
-      setSeasonalIncome(seasonalIncome);
+      setSeasonalIncome(seasonalIncomeOneYear);
     }
   };
 
@@ -176,28 +178,13 @@ function App() {
     }
   };
 
-  const handleTableChange = (event) => {
-    const selectedTable = event.target.getAttribute('name');
-    console.log(`🚀 ~ file: App.js:187 ~ handleTableChange ~ selectedTable:`, selectedTable);
-
-    switch (selectedTable) {
-      case 'bookings':
-        setDisplayTable('bookings');
-        break;
-      case 'guests':
-        setDisplayTable('guests');
-        break;
-      default:
-        break;
-    }
-  };
-
   return (
     <div className='App'>
       <Header className='flex-none mb-4 font-bold text-sm h-9'>
         <div className='flex justify-between items-center'>
           <div className='flex justify-between items-center'>
-            <Icon className='mr-2' icon='home'></Icon> LSEG Hotel - Powered By TRAVELOGO v1.3.3
+            <Icon className='mr-2' icon='home'></Icon> Silom Bangkok Hotel - Powered By TRAVELOGO v
+            {packageJson.version}
           </div>
           <ThemeSwitcher></ThemeSwitcher>
         </div>
@@ -297,17 +284,8 @@ function App() {
       </div>
 
       <div className='mt-4'>
-        <Header>
-          <ButtonBar managed slot='left' className='mr-1' ontap={handleTableChange}>
-            <ef-button name='bookings' active toggles>
-              Bookings
-            </ef-button>
-            {/* TODO <ef-button name='guests' toggles>
-              Guests
-            </ef-button> */}
-          </ButtonBar>
-        </Header>
-        {displayTable === 'bookings' ? <BookingsTable /> : '<h1>Guests</h1>'}
+        <Header>Bookings</Header>
+        <BookingsTable />
       </div>
     </div>
   );
