@@ -1,3 +1,3 @@
 export function getHost() {
-  return 'https://travelogo-service.onrender.com';
+  return 'https://travelogo-services.onrender.com';
 }

@@ -178,6 +178,7 @@ function App() {
 
   const handleTableChange = (event) => {
     const selectedTable = event.target.getAttribute('name');
+    console.log(`🚀 ~ file: App.js:187 ~ handleTableChange ~ selectedTable:`, selectedTable);
 
     switch (selectedTable) {
       case 'bookings':
@@ -296,8 +297,17 @@ function App() {
       </div>
 
       <div className='mt-4'>
-        <Header className='px-2 py-4'>Bookings</Header>
-        <BookingsTable />
+        <Header>
+          <ButtonBar managed slot='left' className='mr-1' ontap={handleTableChange}>
+            <ef-button name='bookings' active toggles>
+              Bookings
+            </ef-button>
+            {/* TODO <ef-button name='guests' toggles>
+              Guests
+            </ef-button> */}
+          </ButtonBar>
+        </Header>
+        {displayTable === 'bookings' ? <BookingsTable /> : '<h1>Guests</h1>'}
       </div>
     </div>
   );
