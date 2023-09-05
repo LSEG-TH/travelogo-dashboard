@@ -1,6 +1,6 @@
 {
   "name": "travelogo-dashboard",
-  "version": "1.3.3",
+  "version": "1.3.4",
   "private": true,
   "homepage": "http://LSEG-TH.github.io/travelogo-dashboard",
   "dependencies": {

@@ -12,7 +12,9 @@ import ButtonBar from './components/ButtonBar';
 import ThemeSwitcher from './components/ThemeSwitcher';
 import BookingsTable from './components/BookingsTable';
 import Icon from './components/Icon';
+import Rating from './components/Rating';
 
+import packageJson from '../package.json';
 import { getHost } from './services/hostService';
 
 function App() {
@@ -42,10 +44,12 @@ function App() {
   }, []);
 
   const [seasonalIncome, setSeasonalIncome] = useState({});
+  const [seasonalIncomeOneYear, setSeasonalIncomeOneYear] = useState({});
   useEffect(() => {
     axios.get(`${getHost()}/api/v1/oneYearSeasonalIncomeData`, {}).then((response) => {
       const data = response.data;
       setSeasonalIncome(data);
+      setSeasonalIncomeOneYear(data);
     });
   }, []);
 
@@ -121,7 +125,62 @@ function App() {
     });
   }, []);
 
-  const [displayTable, setDisplayTable] = useState('bookings');
+  const [bookings, setBookings] = useState([]);
+  useEffect(() => {
+    axios.get(`${getHost()}/api/v1/booking`, {}).then((response) => {
+      const data = response.data.bookings;
+      setBookings(data);
+    });
+  }, []);
+
+  const [guests, setGuests] = useState([]);
+  useEffect(() => {
+    axios.get(`${getHost()}/api/v1/guest`, {}).then((response) => {
+      const data = response.data.guests;
+      setGuests(data);
+    });
+  }, []);
+
+  const [transactions, setTransactions] = useState([]);
+  useEffect(() => {
+    axios.get(`${getHost()}/api/v1/transaction`, {}).then((response) => {
+      const data = response.data.transactions;
+      setTransactions(data);
+    });
+  }, []);
+
+  const [reviews, setReviews] = useState([]);
+  const [averageRating, setAverageRating] = useState(0);
+  useEffect(() => {
+    axios.get(`${getHost()}/api/v1/review`, {}).then((response) => {
+      const reviews = response.data.reviews;
+      const totalScore = reviews
+        .map((review) => parseInt(review.score))
+        .reduce(function (sum, score) {
+          return sum + score;
+        });
+      const averageScore = totalScore / reviews.length;
+      setReviews(reviews);
+      setAverageRating(averageScore);
+    });
+  }, []);
+
+  useEffect(() => {
+    const rows = bookings.map((booking) => {
+      const haveEqualId = (record) => record.booking_id === booking.booking_id;
+      const reviewWithEqualId = reviews.find(haveEqualId);
+      const guestWithEqualId = guests.find(haveEqualId);
+      const transactionWithEqualId = transactions.find(haveEqualId);
+      return Object.assign(
+        {},
+        booking,
+        reviewWithEqualId,
+        transactionWithEqualId,
+        guestWithEqualId,
+      );
+    });
+    setBookings([...rows]);
+  }, [guests, transactions, reviews]);
 
   const getOneYearIncome = () => {
     return Object.keys(seasonalIncome).length ? seasonalIncome.datasets[0]?.data || [] : [];
@@ -139,7 +198,7 @@ function App() {
     if (event.target.getAttribute('name') === '3y') {
       setSeasonalIncome(seasonalIncomeThreeYears);
     } else {
-      setSeasonalIncome(seasonalIncome);
+      setSeasonalIncome(seasonalIncomeOneYear);
     }
   };
 
@@ -176,27 +235,13 @@ function App() {
     }
   };
 
-  const handleTableChange = (event) => {
-    const selectedTable = event.target.getAttribute('name');
-
-    switch (selectedTable) {
-      case 'bookings':
-        setDisplayTable('bookings');
-        break;
-      case 'guests':
-        setDisplayTable('guests');
-        break;
-      default:
-        break;
-    }
-  };
-
   return (
     <div className='App'>
       <Header className='flex-none mb-4 font-bold text-sm h-9'>
         <div className='flex justify-between items-center'>
           <div className='flex justify-between items-center'>
-            <Icon className='mr-2' icon='home'></Icon> LSEG Hotel - Powered By TRAVELOGO v1.3.3
+            <Icon className='mr-2' icon='home'></Icon> Silom Bangkok Hotel - Powered By TRAVELOGO v
+            {packageJson.version}
           </div>
           <ThemeSwitcher></ThemeSwitcher>
         </div>
@@ -237,7 +282,7 @@ function App() {
           <div className='flex flex-col grow items-center justify-center accent-bg'>
             <div>
               <h1 className='text-xl'>Average Rating</h1>
-              <h1 className='text-6xl'>8.1/10</h1>
+              <h1 className='text-6xl'>{averageRating}/10</h1>
             </div>
           </div>
           <div className='flex flex-col grow items-center justify-center'>
@@ -296,8 +341,8 @@ function App() {
       </div>
 
       <div className='mt-4'>
-        <Header className='px-2 py-4'>Bookings</Header>
-        <BookingsTable />
+        <Header>Bookings</Header>
+        <BookingsTable bookings={bookings} />
       </div>
     </div>
   );
