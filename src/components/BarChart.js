@@ -16,7 +16,7 @@ function BarChart({ data, title, yAxisLabel, displayLegend = false }) {
           callbacks: {
             label: (tooltipItem) => {
               let rev = tooltipItem.raw;
-              rev = rev.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+              rev = rev.toString().replace(/\B(?=(\d{2})+(?!\d))/g, ',');
               return `${rev}%`;
             },
           },

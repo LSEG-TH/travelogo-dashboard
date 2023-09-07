@@ -12,7 +12,6 @@ import ButtonBar from './components/ButtonBar';
 import ThemeSwitcher from './components/ThemeSwitcher';
 import BookingsTable from './components/BookingsTable';
 import Icon from './components/Icon';
-import Rating from './components/Rating';
 
 import packageJson from '../package.json';
 import { getHost } from './services/hostService';

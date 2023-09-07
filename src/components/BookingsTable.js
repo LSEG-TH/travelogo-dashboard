@@ -1,7 +1,3 @@
-import { useEffect, useState } from 'react';
-import { getHost } from '../services/hostService';
-import axios from 'axios';
-
 import Flag from './Flag';
 import Icon from './Icon';
 import Pill from './Pill';
@@ -14,7 +10,7 @@ export const BookingsTable = ({ bookings }) => {
   return (
     <div className='flex flex-col'>
       <div className='w-full inline-block align-middle'>
-        <div className='overflow-auto border'>
+        <div className='overflow-hidden border'>
           <table className='min-w-full divide-y divide-gray-200'>
             <thead className='bg-gray-50'>
               <tr>
@@ -95,7 +91,7 @@ export const BookingsTable = ({ bookings }) => {
                     <td className='px-6 py-4 text-sm font-medium whitespace-nowrap'>
                       #{booking_id}
                     </td>
-                    <td className='px-6 py-4 text-sm font-medium whitespace-nowrap capitalize'>
+                    <td className='px-6 py-4 text-sm font-medium whitespace-nowrap capitalize text-gray-100'>
                       <h3>{guest_name}</h3>
                       <div className='flex gap-2'>
                         <Flag className='mr-2' flag={origin_country.toLowerCase()}></Flag>
@@ -103,7 +99,7 @@ export const BookingsTable = ({ bookings }) => {
                         <span className='font-light'>PAX</span>
                       </div>
                     </td>
-                    <td className='px-6 py-4 text-sm font-medium whitespace-nowrap capitalize'>
+                    <td className='px-6 py-4 text-sm font-medium whitespace-nowrap capitalize '>
                       {room_type}{' '}
                       <span className='font-light'>
                         {visit_length_day} {visit_length_day > 1 ? 'Days' : 'Day'}
