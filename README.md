@@ -1,4 +1,4 @@
-## About
+## Travelogo dashboard
 
 This is the frontend project for Travelogo dashboard
 
@@ -14,4 +14,10 @@ Run development
 
 ```sh
 npm run start
+```
+
+Deploy
+
+```sh
+npm run deploy
 ```

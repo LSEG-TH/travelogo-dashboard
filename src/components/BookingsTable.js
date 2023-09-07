@@ -1,10 +1,7 @@
-import { useEffect, useState } from 'react';
-import { getHost } from '../services/hostService';
-import axios from 'axios';
-
 import Flag from './Flag';
 import Icon from './Icon';
 import Pill from './Pill';
+import Rating from './Rating';
 
 export const BookingsTable = ({ bookings }) => {
   const getStatusColor = (status) => {
@@ -128,7 +125,7 @@ export const BookingsTable = ({ bookings }) => {
                       </span>
                     </td>
                     <td className='py-2'>
-                      <ef-rating value={score / 2}></ef-rating>
+                      <Rating value={score / 2} />
                       <p>{comment}</p>
                     </td>
                   </tr>
