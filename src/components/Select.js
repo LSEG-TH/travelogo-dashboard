@@ -6,4 +6,7 @@ export default createComponent({
   tagName: 'ef-select',
   elementClass: Select,
   react: React,
+  events: {
+    valueChanged: 'value-changed',
+  },
 });

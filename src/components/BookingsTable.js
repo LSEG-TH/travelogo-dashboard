@@ -11,7 +11,7 @@ export const BookingsTable = ({ bookings }) => {
   return (
     <div className='flex flex-col'>
       <div className='w-full inline-block align-middle'>
-        <div className='overflow-auto border'>
+        <div className='overflow-auto'>
           <table className='min-w-full divide-y divide-gray-200'>
             <thead className='bg-gray-50'>
               <tr>

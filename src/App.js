@@ -12,6 +12,7 @@ import ButtonBar from './components/ButtonBar';
 import ThemeSwitcher from './components/ThemeSwitcher';
 import BookingsTable from './components/BookingsTable';
 import Icon from './components/Icon';
+import Select from './components/Select';
 
 import packageJson from '../package.json';
 import { getHost } from './services/hostService';
@@ -124,62 +125,71 @@ function App() {
     });
   }, []);
 
+  const initialStockPrice = 6.5;
   const [bookings, setBookings] = useState([]);
-  useEffect(() => {
-    axios.get(`${getHost()}/api/v2/booking`, {}).then((response) => {
-      const data = response.data.bookings;
-      setBookings(data);
-    });
-  }, []);
-
-  const [guests, setGuests] = useState([]);
-  useEffect(() => {
-    axios.get(`${getHost()}/api/v2/guest`, {}).then((response) => {
-      const data = response.data.guests;
-      setGuests(data);
-    });
-  }, []);
-
-  const [transactions, setTransactions] = useState([]);
-  useEffect(() => {
-    axios.get(`${getHost()}/api/v2/transaction`, {}).then((response) => {
-      const data = response.data.transactions;
-      setTransactions(data);
-    });
-  }, []);
-
-  const [reviews, setReviews] = useState([]);
   const [averageRating, setAverageRating] = useState(0);
+  const [convertedStockPrice, setConvertedStockPrice] = useState(initialStockPrice);
+  const [currency, setCurrency] = useState('USD');
+  const [currencies, setCurrencies] = useState([]);
+
   useEffect(() => {
-    axios.get(`${getHost()}/api/v2/review`, {}).then((response) => {
-      const reviews = response.data.reviews;
-      const totalScore = reviews
-        .map((review) => parseInt(review.score))
-        .reduce(function (sum, score) {
-          return sum + score;
+    axios.get(`${getHost()}/api/v2/currency`, {}).then((response) => {
+      const currencies = [];
+      const currencyExchanges = response.data.currency_exchange;
+
+      currencyExchanges.forEach(({ currency_code, exchange_rates }) => {
+        currencies.push({
+          currencyCode: currency_code,
+          exchangeRate: exchange_rates[1].rate,
         });
-      const averageScore = totalScore / reviews.length;
-      setReviews(reviews);
-      setAverageRating(averageScore);
+      });
+
+      setCurrencies([...currencies]);
     });
   }, []);
 
   useEffect(() => {
-    const rows = bookings.map((booking) => {
-      const haveEqualId = (record) => record.booking_id === booking.booking_id;
-      const reviewWithEqualId = reviews.find(haveEqualId);
-      const guestWithEqualId = guests.find(haveEqualId);
-      const transactionWithEqualId = transactions.find(haveEqualId);
-      return Object.assign(
-        {},
-        booking,
-        reviewWithEqualId,
-        transactionWithEqualId,
-        guestWithEqualId,
-      );
-    });
-    setBookings([...rows]);
-  }, [guests, transactions, reviews]);
+    let endpoints = [
+      `${getHost()}/api/v2/booking`,
+      `${getHost()}/api/v2/guest`,
+      `${getHost()}/api/v2/transaction`,
+      `${getHost()}/api/v2/review`,
+    ];
+
+    axios
+      .all(endpoints.map((endpoint) => axios.get(endpoint)))
+      .then(([booking, guest, transaction, review]) => {
+        const bookings = booking.data.bookings;
+        const guests = guest.data.guests;
+        const transactions = transaction.data.transactions;
+        const reviews = review.data.reviews;
+
+        const rows = bookings.map((booking) => {
+          const haveEqualId = (record) => record.booking_id === booking.booking_id;
+
+          const guestWithEqualId = guests.find(haveEqualId);
+          const transactionWithEqualId = transactions.find(haveEqualId);
+          const reviewWithEqualId = reviews.find(haveEqualId);
+
+          return Object.assign(
+            {},
+            booking,
+            guestWithEqualId,
+            transactionWithEqualId,
+            reviewWithEqualId,
+          );
+        });
+
+        const totalScore = reviews
+          .map((review) => parseInt(review.score))
+          .reduce(function (sum, score) {
+            return sum + score;
+          });
+        const averageScore = totalScore / reviews.length;
+        setAverageRating(averageScore);
+        setBookings([...rows]);
+      });
+  }, []);
 
   const getOneYearIncome = () => {
     return Object.keys(seasonalIncome).length ? seasonalIncome.datasets[0]?.data || [] : [];
@@ -234,6 +244,20 @@ function App() {
     }
   };
 
+  const handleOnValueChanged = (event) => {
+    const currencyCode = event.detail.value;
+    const exchangeRate = currencies.find(
+      (currency) => currency.currencyCode === currencyCode,
+    ).exchangeRate;
+
+    if (exchangeRate) {
+      const price = parseFloat(initialStockPrice * exchangeRate);
+      setConvertedStockPrice(price);
+    }
+
+    setCurrency(currencyCode);
+  };
+
   return (
     <div className='App'>
       <Header className='flex-none mb-4 font-bold text-sm h-9'>
@@ -242,7 +266,14 @@ function App() {
             <Icon className='mr-2' icon='home'></Icon> Silom Bangkok Hotel - Powered By TRAVELOGO v
             {packageJson.version}
           </div>
-          <ThemeSwitcher></ThemeSwitcher>
+          <div className='flex gap-1'>
+            <Select value={currency} valueChanged={handleOnValueChanged}>
+              {currencies.map(({ currencyCode }) => (
+                <ef-item key={currencyCode}>{currencyCode}</ef-item>
+              ))}
+            </Select>
+            <ThemeSwitcher></ThemeSwitcher>
+          </div>
         </div>
       </Header>
       <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 grid-rows-1 gap-4'>
@@ -278,16 +309,16 @@ function App() {
           <BarChart data={oneYearTurnupRatioData} yAxisLabel={'Turn up ratio (%)'} />
         </div>
         <div className='flex flex-col order-first col-span-2 row-span-2 lg:order-none lg:col-span-1 text-center'>
-          <div className='flex flex-col grow items-center justify-center accent-bg'>
+          <div className='flex flex-col grow items-center justify-center accent-bg py-8'>
             <div>
               <h1 className='text-xl'>Average Rating</h1>
               <h1 className='text-6xl'>{averageRating}/10</h1>
             </div>
           </div>
-          <div className='flex flex-col grow items-center justify-center'>
+          <div className='flex flex-col grow items-center justify-center py-8'>
             <div>
-              <h1 className='text-xl'>Average Monthly $</h1>
-              <h1 className='text-4xl'>${getAverageMonthly()}</h1>
+              <h1 className='text-xl'>Average Monthly ({currency})</h1>
+              <h1 className='text-4xl'>{getAverageMonthly()}</h1>
             </div>
             <SparkLineChart
               className='w-full h-44 pt-6'
@@ -295,10 +326,10 @@ function App() {
               referenceValue={10000}
             ></SparkLineChart>
           </div>
-          <div className='flex flex-col grow items-center justify-center'>
+          <div className='flex flex-col grow items-center justify-center py-8'>
             <div>
               <h1 className='text-xl'>ESG (By LSEG)</h1>
-              <h1 className='text-6xl'>6.5</h1>
+              <h1 className='text-6xl'>{convertedStockPrice}</h1>
             </div>
           </div>
         </div>
