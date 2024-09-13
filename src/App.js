@@ -259,6 +259,7 @@ function App() {
             </ButtonBar>
           </Header>
           <LineChart data={seasonalIncome} yAxisLabel={'Income ($)'} displayLegend />
+            {/* TODO: Add combo chart */}
         </div>
         <div className='grid col-span-2 chart-container'>
           <Header className='mb-4'>
