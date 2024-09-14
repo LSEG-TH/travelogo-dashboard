@@ -10,8 +10,8 @@ export const BookingsTable = ({ bookings }) => {
   return (
     <div className='flex flex-col'>
       <div className='w-full inline-block align-middle'>
-        <div className='overflow-hidden border'>
-          <table className='min-w-full divide-y divide-gray-200'>
+        <div className='overflow-x-auto border'>
+          <table className='min-w-full divide-y divide-gray-200 '>
             <thead className='bg-gray-50'>
               <tr>
                 <th
