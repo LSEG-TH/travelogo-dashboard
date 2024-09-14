@@ -85,6 +85,7 @@ function App() {
     });
   }, []);
 
+
   const [twoYearsGuestPerCountryData, setTwoYearsGuestPerCountryData] = useState({});
   useEffect(() => {
     axios.get(`${getHost()}/api/v1/twoYearsGuestPerCountryData`, {}).then((response) => {
