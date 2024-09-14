@@ -124,6 +124,30 @@ function App() {
     });
   }, []);
 
+  const [seasonalBooking, setSeasonalBooking] = useState([]);
+  useEffect(() => {
+    try{
+      axios.get(`${getHost()}/api/v1/seasonalBooking`, {}).then((response) => {
+        const data = response.data.seasonalBooking;
+        setSeasonalBooking(data);
+      });
+    }catch(error){
+      
+    }
+    
+  }, []);
+
+  const [seasonalCheckin, setSeasonalCheckin] = useState([]);
+  useEffect(() => {
+    try{
+      axios.get(`${getHost()}/api/v1/seasonalCheckin`, {}).then((response) => {
+        const data = response.data.seasonalCheckin;
+        setSeasonalCheckin(data);
+      });
+    }catch(error){
+    }
+  }, []);
+
   const [bookings, setBookings] = useState([]);
   useEffect(() => {
     axios.get(`${getHost()}/api/v1/booking`, {}).then((response) => {
