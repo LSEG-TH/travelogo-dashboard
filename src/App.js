@@ -128,10 +128,10 @@ function App() {
   const [seasonalBooking, setSeasonalBooking] = useState([]);
   useEffect(() => {
     try{
-      //axios.get(`${getHost()}/api/v1/seasonalBooking`, {}).then((response) => {
-        const data = [10];
+      axios.get(`${getHost()}/api/v1/seasonalBooking`, {}).then((response) => {
+        const data = response.data;
         setSeasonalBooking(data);
-      //});
+      });
     }catch(error){
 
     }
@@ -141,10 +141,10 @@ function App() {
   const [seasonalCheckin, setSeasonalCheckin] = useState([]);
   useEffect(() => {
     try{
-      //axios.get(`${getHost()}/api/v1/seasonalCheckin`, {}).then((response) => {
-        const data = [20];
+      axios.get(`${getHost()}/api/v1/seasonalCheckin`, {}).then((response) => {
+        const data = response.data;
         setSeasonalCheckin(data);
-      //});
+      });
     }catch(error){
       
     }
@@ -286,7 +286,7 @@ function App() {
           </Header>
           <LineChart data={seasonalIncome} yAxisLabel={'Income ($)'} displayLegend />
             {/* TODO: Add combo chart */}
-            {/* <ComboChart></ComboChart> */}
+            <ComboChart></ComboChart>
         </div>
         <div className='grid col-span-2 chart-container'>
           <Header className='mb-4'>
