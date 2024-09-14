@@ -1,3 +1,3 @@
 export function getHost() {
-  return 'https://travelogo-services.onrender.com';
+  return process.env.REACT_APP_SERVICE_URL;
 }

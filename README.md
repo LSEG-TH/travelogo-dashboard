@@ -15,3 +15,5 @@ Run development
 ```sh
 npm run start
 ```
+
+Rename env file into .env
